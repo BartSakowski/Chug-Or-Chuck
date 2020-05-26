@@ -23,17 +23,36 @@ main {
   padding-bottom: 30px;
 }
 
-div.card {
-  background-color: #eeeeee;
-  height: 250px;
-  width: 300px;
-  box-shadow: 10px 10px grey;
-  padding: 10px;
-  border-radius: 10px;
+
+
+.card {
+  text-align: center;
+  border: grey solid 1px;
+  padding: 1rem;
+  width: 20rem;
+  height: 32rem;
+  display: center;
+  margin: 1rem 2rem;
+  box-shadow: 3px 4px #e04b52
 }
 
+.beer-avatar {
+  justify-self: center;
+  height: 12rem;
+  width: auto;
+}
+
+#chug-list-container {
+  min-width: 15em;
+  max-width: 24em;
+  float: left;
+  margin-left: 2em;
+  margin-top: 6.5em;
+}
+
+
 p {
-  font-size: 1.5em;
+  font-size: 1.05em;
   color: black;
   font-family: Helvetica;
 }
@@ -45,11 +64,17 @@ li {
 }
 
 button {
-  font-size: .65em;
-  color: #fff;
-  background-color: green;
-  border-radius: 10px;
+  position: relative;
+  background-color: #e04b52;
+  border: none;
+  border-radius: 5px;
+  height: 3rem;
+  width: max-content;
+  color: whitesmoke;
+  font-size: 18px;
+  justify-self: center;
 }
+
 
 button.release {
   float: right;
