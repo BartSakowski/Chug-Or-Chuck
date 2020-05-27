@@ -29,8 +29,8 @@ main {
   text-align: center;
   border: grey solid 1px;
   padding: 1rem;
-  width: 20rem;
-  height: 32rem;
+  width: 25rem;
+  height: 40rem;
   display: center;
   margin: 1rem 2rem;
   box-shadow: 3px 4px #e04b52
@@ -38,7 +38,7 @@ main {
 
 .beer-avatar {
   justify-self: center;
-  height: 12rem;
+  height: 15rem;
   width: auto;
 }
 
