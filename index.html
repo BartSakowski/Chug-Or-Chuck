@@ -12,7 +12,23 @@
 
     <main>
       <div class="card">
-
+        <h2 id="brand"></h2>
+        <h3 id="bartender">Bartender: </h3>
+        <h3 id="location">Location: </h3>
+        <img src="" class="beer-avatar" />
+        <h4 id="uploader_comment"></h4> 
+        <ul id="user_comments"></ul>
+        <form class="add-comment-form">
+          <input type="text" name="comment" value="" placeholder="Comment" class="input-text"/>
+          <br>
+          <input type="submit" name="submit" value="Add Comment" class="submit"/>
+        </form>
+        <span>
+        <p class="chugLikes"> Chugs</p>
+        <button class="chug-btn" data-id="">Chug </button>
+        <p class="chuckLikes"> Chucks</p>
+        <button class="chuck-btn" data-id="">Chuck</button>
+        </span>
       </div>
       <div id="chug-list-container">
         <ul id="chug-list-items"></ul>

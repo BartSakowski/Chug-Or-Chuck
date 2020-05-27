@@ -7,50 +7,41 @@ let chuckList = []
 async function fetchBeers() {
   const resp = await fetch("http://localhost:3000/beers")
   const beers = await resp.json()
-  beers.data.forEach(pushToBeerArray)  
-}
-
-function pushToBeerArray(beer){
-  beerArray.push(beer)
+  beerArray = beers.data 
+  renderBeer(beerArray) 
 }
 
 function renderBeer(beer) {
- 
   const { brand, name, location, image, uploader_comment, chugs, chucks, comments } = beer[0].attributes
-  beerCard.innerHTML =
-  `<h2>${brand}</h2>
-  <h3>Bartender: ${name}</h3>
-  <h3>Location: ${location}</h3>
-  <img src=${image} class="beer-avatar" />
-  <h4>${uploader_comment}</h4> 
-  <ul id="user_comments"></ul>
-  <form class="add-comment-form>
-  <input
-  type="text"
-  name="comment"
-  value=""
-  placeholder="Comment"
-  class="input-text"
-  />
-  <br>
-  <input
-  type="submit"
-  name="submit"
-  value="Add Comment"
-  class="submit"
-  />
-  </form>
-  <span>
-  <p class="chugLikes"> ${chugs} Chugs</p>
-  <button class="chug-btn" data-id=${beer[0].id}>Chug </button>
-  <p class="chuckLikes"> ${chucks} Chucks</p>
-  <button class="chuck-btn" data-id=${beer[0].id}>Chuck</button>
-  </span>`
+  const cardBrand = document.getElementById("brand")
+  cardBrand.innerHTML = brand
+
+  const cardName = document.getElementById("bartender")
+  cardName.innerHTML = name
+
+  const cardLocation = document.getElementById("location")
+  cardLocation.innerHTML = location
+
+  const cardImg = document.querySelector(".beer-avatar")
+  cardImg.src = image
+
+  const cardUploaderComment = document.getElementById("uploader_comment")
+  cardUploaderComment.innerHTML = uploader_comment
+
+  const chugNum = document.querySelector(".chugLikes")
+  chugNum.innerHTML = `${chugs} Chugs`
+
+  const chugId = document.querySelector(".chug-btn").dataset
+  chugId.innerText = `${beer[0].id}`
+
+
+  const chuckNum = document.querySelector(".chuckLikes")
+  chuckNum.innerHTML = `${chucks} Chucks`
+
   const userComments = document.getElementById("user_comments")
   comments.forEach(comment => {
-    userComments.innerHTML += `<li>-${comment.text}</li>`
+    userComments.innerHTML = `<li>-${comment.text}</li>`
   })
-
 }
 
 function addChug() {
@@ -71,6 +62,7 @@ function addChug() {
         })
       }
       const id = event.target.dataset.id
+      console.log(event.target.dataset)
       fetch(`http://localhost:3000/beers/${id}`, reqObj)
       .then(resp => resp.json())
       .then(chug => event.target.previousElementSibling.innerHTML = `${currentChugs + 1} Chugs`)
@@ -88,7 +80,6 @@ const chugContainer = document.querySelector("#chug-list-container")
 function loadChugList(chugList) {
   const chugListItems = document.getElementById("chug-list-items")
   chugList.forEach(beer => {
-    console.log(beer.id)
     chugListItems.innerHTML += `<li class="chug-list-beers" data-beer-id=${beer.id}>${beer.attributes.brand}</li>` 
   }
   )
@@ -123,12 +114,26 @@ function addChuck() {
 }
 
 
+function chugListCardRender() {
+  const chugListContainer = document.querySelector("#chug-list-container")
+  chugListContainer.addEventListener('click', (event) => {
+    if (event.target.className === "chug-list-beers") {
+      const currentBeerId = event.target.dataset.beerId
+      renderBeerListCard(currentBeerId)
+    }
+  })
+}
+
+function renderBeerListCard(currentBeerId) {
+
+}
+
 
 async function app() {
   await fetchBeers()
-  renderBeer(beerArray)
   addChug()
   addChuck()
+  chugListCardRender()
   // loadChugList()
 }
 
