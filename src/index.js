@@ -1,4 +1,6 @@
 const beerCard = document.querySelector(".card")
+
+
 let beerArray = []
 
 let chuckList = []
@@ -7,12 +9,14 @@ let chuckList = []
 async function fetchBeers() {
   const resp = await fetch("http://localhost:3000/beers")
   const beers = await resp.json()
-  beers.data.forEach(pushToBeerArray)  
+  beerArray = beers.data 
+  renderBeer(beerArray)
+  
 }
 
-function pushToBeerArray(beer){
-  beerArray.push(beer)
-}
+// function pushToBeerArray(beer){
+//   beerArray.push(beer)
+// }
 
 function renderBeer(beer) {
  
@@ -24,21 +28,10 @@ function renderBeer(beer) {
   <img src=${image} class="beer-avatar" />
   <h4>${uploader_comment}</h4> 
   <ul id="user_comments"></ul>
-  <form class="add-comment-form>
-  <input
-  type="text"
-  name="comment"
-  value=""
-  placeholder="Comment"
-  class="input-text"
-  />
+  <form class="add-comment-form">
+  <input type="text" name="comment" maxlength="50" value="" placeholder="Comment" class="input-text"/>
   <br>
-  <input
-  type="submit"
-  name="submit"
-  value="Add Comment"
-  class="submit"
-  />
+  <input type="submit" name="submit" value="Add Comment" class="submit"/>
   </form>
   <span>
   <p class="chugLikes"> ${chugs} Chugs</p>
@@ -50,8 +43,16 @@ function renderBeer(beer) {
   comments.forEach(comment => {
     userComments.innerHTML += `<li>-${comment.text}</li>`
   })
+  const commentForm = document.querySelector(".add-comment-form")
+  console.log(commentForm)
+  commentForm.addEventListener("submit", (event) => {
+    event.preventDefault()
+    console.log("hey")
+  })
 
 }
+
+
 
 function addChug() {
   // const chugBtn = document.querySelector(".chug-btn")
@@ -82,13 +83,13 @@ function addChug() {
       loadChugList(chugList)
     }
   })
+
 }
 const chugContainer = document.querySelector("#chug-list-container")
 
 function loadChugList(chugList) {
   const chugListItems = document.getElementById("chug-list-items")
   chugList.forEach(beer => {
-    console.log(beer.id)
     chugListItems.innerHTML += `<li class="chug-list-beers" data-beer-id=${beer.id}>${beer.attributes.brand}</li>` 
   }
   )
@@ -124,11 +125,17 @@ function addChuck() {
 
 
 
-async function app() {
-  await fetchBeers()
-  renderBeer(beerArray)
+
+
+
+
+
+ function app() {
+  fetchBeers()
+  
   addChug()
   addChuck()
+  // newComment()
   // loadChugList()
 }
 
