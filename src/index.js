@@ -41,7 +41,7 @@ function renderBeer(beer) {
   chuckId.id = `${beer[0].id}`
 
   const userComments = document.getElementById("user_comments")
-  console.log(comments)
+
   comments.forEach(comment => {
     userComments.innerHTML = `<li>-${comment.text}</li>`
   })
@@ -52,15 +52,15 @@ function renderBeer(beer) {
 function addComment() {
   const commentForm = document.querySelector(".add-comment-form")
   console.log(commentForm)
-  commentForm.addEventListener("click", (event) => {
+  commentForm.addEventListener("submit", (event) => {
     event.preventDefault()
     console.log("hey")
   })
 }
+const chugContainerCard = document.querySelector(".chugContainer")
 
 function addChug() {
-  // const chugBtn = document.querySelector(".chug-btn")
-  beerCard.addEventListener('click', (event) => {
+  chugContainerCard.addEventListener('click', (event) => {
     event.preventDefault()
     if (event.target.className === "chug-btn") {
       let currentChugs = parseInt(event.target.previousElementSibling.innerHTML)
@@ -101,7 +101,7 @@ function loadChugList(chugList) {
 
 function addChuck() {
 
-  beerCard.addEventListener('click', (event) => {
+  chugContainerCard.addEventListener('click', (event) => {
     if (event.target.className === "chuck-btn") {
       let currentChucks = parseInt(event.target.previousElementSibling.innerHTML)
       const reqObj = {
@@ -143,8 +143,8 @@ function renderBeerListCard(currentBeerId) {
 }
 
 
-async function app() {
-  await fetchBeers()
+function app() {
+  fetchBeers()
   addChug()
   addChuck()
   chugListCardRender()
