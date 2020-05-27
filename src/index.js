@@ -32,15 +32,29 @@ function renderBeer(beer) {
   chugNum.innerHTML = `${chugs} Chugs`
 
   const chugId = document.querySelector(".chug-btn").dataset
-  chugId.innerText = `${beer[0].id}`
-
+  chugId.id = `${beer[0].id}`
 
   const chuckNum = document.querySelector(".chuckLikes")
   chuckNum.innerHTML = `${chucks} Chucks`
 
+  const chuckId = document.querySelector(".chuck-btn").dataset
+  chuckId.id = `${beer[0].id}`
+
   const userComments = document.getElementById("user_comments")
+  console.log(comments)
   comments.forEach(comment => {
     userComments.innerHTML = `<li>-${comment.text}</li>`
+  })
+
+
+}
+
+function addComment() {
+  const commentForm = document.querySelector(".add-comment-form")
+  console.log(commentForm)
+  commentForm.addEventListener("click", (event) => {
+    event.preventDefault()
+    console.log("hey")
   })
 }
 
@@ -134,6 +148,7 @@ async function app() {
   addChug()
   addChuck()
   chugListCardRender()
+  addComment()
   // loadChugList()
 }
 
