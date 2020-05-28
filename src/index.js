@@ -1,14 +1,20 @@
 const beerCard = document.querySelector(".card")
+const chugListCard = document.querySelector(".chug-list-card")
+const chugContainer = document.querySelector("#chug-list-container")
 let beerArray = []
-
+let chugList = []
 let chuckList = []
 
+
+// find or create for User
+// 
 
 async function fetchBeers() {
   const resp = await fetch("http://localhost:3000/beers")
   const beers = await resp.json()
   beerArray = beers.data 
   renderBeer(beerArray) 
+  console.log("persnickty")
 }
 
 function renderBeer(beer) {
@@ -100,22 +106,24 @@ function addChug() {
         })
       }
       const id = event.target.dataset.id
+      // console.log(event.target.dataset)
       fetch(`http://localhost:3000/beers/${id}`, reqObj)
       .then(resp => resp.json())
       // .then(chug => event.target.nextElementSibling.innerHTML = `${currentChugs + 1} Chugs`)
     
-      const chugList = []
+      
       let chugItem = beerArray.shift()
       chugList.push(chugItem)
       renderBeer(beerArray)
       loadChugList(chugList)
+      // console.log(chugList, "-----")
     }
   })
 }
-const chugContainer = document.querySelector("#chug-list-container")
 
 function loadChugList(chugList) {
   const chugListItems = document.getElementById("chug-list-items")
+  chugListItems.innerHTML = ""
   chugList.forEach(beer => {
     chugListItems.innerHTML += `<li class="chug-list-beers" data-beer-id=${beer.id}>${beer.attributes.brand}</li>` 
   }
@@ -152,56 +160,93 @@ function addChuck() {
   })
 }
 
-
-function chugListCardRender() {
+function chugListCardListener() {
   const chugListContainer = document.querySelector("#chug-list-container")
   chugListContainer.addEventListener('click', (event) => {
     if (event.target.className === "chug-list-beers") {
-      const currentBeerId = event.target.dataset.beerId
-      renderBeerListCard(currentBeerId)
+      const currentBeerId = (event.target.dataset.beerId)
+      console.log(currentBeerId, '!!!!!!!!')
+      
+      const chugItem = chugList.find((chug) => chug.id === currentBeerId)
+      renderSingleBeer(chugItem)
+
+      // for( let i = 0; i < chugList.length; i++) {
+      //   if (chugList[i].id === currentBeerId){
+      //     console.log(chugList[i])
+      //     renderSingleBeer(chugList[i])
+      //    }
     }
+    // }
   })
 }
 
-function renderBeerListCard(currentBeerId) {
+function renderSingleBeer(chugListId) {
+  console.log(chugListId,"=====")
+  chugListCard.style.display='block'
+  beerCard.style.display='none'
 
+    const { brand, name, location, image, uploader_comment, chugs, chucks, comments } = chugListId.attributes
+    const cardBrand = document.getElementById("brand-list")
+    cardBrand.innerHTML = brand
+  
+    const cardName = document.getElementById("bartender-list")
+    cardName.innerHTML = name
+  
+    const cardLocation = document.getElementById("location-list")
+    cardLocation.innerHTML = location
+    
+    const cardImg = document.querySelector(".beer-avatar-chug")
+    cardImg.src = image
+    // console.log(cardImg)
+    
+    const cardUploaderComment = document.getElementById("uploader_comment-list")
+    cardUploaderComment.innerHTML = uploader_comment
+
+    const chugNum = document.querySelector(".chugLikes-list")
+    chugNum.innerHTML = `${chugs} Chugs`
+  
+    const chuckNum = document.querySelector(".chuckLikes-list")
+    chuckNum.innerHTML = `${chucks} Chucks`
+  
+    const chuckId = document.querySelector(".chuck-btn-list").dataset
+    // console.log(chugListId)
+    chuckId.id = `${chugListId.id}`
+  
+
+    const overIt = document.querySelector
 }
 
+function getOverIt() {
+  chugListCard.addEventListener('click', (event) => {
+    if (event.target.className === "chuck-btn-list") {
+      // console.log(event.target)
+      // console.log(chugList[0].id)
+      const currentBeerId = event.target.dataset.id
+
+      for( let i = 0; i < chugList.length; i++) {
+        if (chugList[i].id === currentBeerId) {
+         
+          chugList.splice(i, 1);
+          break;
+        } //else {
+        //   console.log('else')
+        // }
+      }
+
+
+      loadChugList(chugList)
+      console.log(chugList)
+    }
+  })
+}
 
 function app() {
   fetchBeers()
   addChug()
   addChuck()
-  chugListCardRender()
+  chugListCardListener()
   addComment()
-  // loadChugList()
+  getOverIt()
 }
 
 app()
-
-// console.log(beerArray)
-// fetchBeers()
-// addChug()
-// renderBeer(beer)
-
-
-// renderBeer()
-
-// Sequential
-// Callback
-// SetTimeout
-// Promise
-// Async/await
-          // function fetchBeers() {
-          //  fetch("http://localhost:3000/beers")
-          //     .then(resp => resp.json())
-          //     .then(beers => {
-          //       // renderBeer(beers.data[0])
-          //       beers.data.forEach(pushToBeerArray)
-          //       console.log(beerArray, '------')
-          //     })
-          //     .then(() => {
-          //       console.log(beerArray, '------')
-          //     })
-          
-          //   }
