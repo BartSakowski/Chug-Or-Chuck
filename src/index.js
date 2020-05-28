@@ -14,7 +14,7 @@ async function fetchBeers() {
   const beers = await resp.json()
   beerArray = beers.data 
   renderBeer(beerArray) 
-
+  console.log("persnickty")
 }
 
 function renderBeer(beer) {
@@ -51,7 +51,6 @@ function renderBeer(beer) {
   chuckId.id = `${beer[0].id}`
   
   const userComments = document.getElementById("user_comments")
-
   userComments.innerHTML = ""
  
     comments.forEach(comment => {
@@ -62,13 +61,11 @@ function renderBeer(beer) {
   //   userComments.innerHTML += `<li>-${user.name} </li>`
   // })
 
-
 }
 
 function addComment() {
   const userComments = document.getElementById("user_comments")
   const commentForm = document.querySelector(".add-comment-form")
-
   commentForm.addEventListener("submit", (event) => {
     console.log(userComments.children.length)
     event.preventDefault()
@@ -91,7 +88,6 @@ function addComment() {
     fetch("http://localhost:3000/comments/", reqObj)
     .then(resp => resp.json())
     // .then(comment => console.log(comment))
-
   })
 }
 const chugContainerCard = document.querySelector(".chugContainer")
@@ -113,8 +109,7 @@ function addChug() {
         })
       }
       const id = event.target.dataset.id
-
-
+      // console.log(event.target.dataset)
       fetch(`http://localhost:3000/beers/${id}`, reqObj)
       .then(resp => resp.json())
       // .then(chug => event.target.nextElementSibling.innerHTML = `${currentChugs + 1} Chugs`)
@@ -136,6 +131,7 @@ function loadChugList(chugList) {
     chugListItems.innerHTML += `<li class="chug-list-beers" data-beer-id=${beer.id}>${beer.attributes.brand}</li>` 
   }
   )
+  //
 }
 
 function addChuck() {

@@ -79,13 +79,11 @@ main {
 }
 
 #chug-list-container {
-
   /* min-width: 10em;
   max-width: 20em; */
   width: 25rem;
   height: 50rem;
   /* float: right; */
-
   margin-left: 2em;
   /* margin-top: 6.5em; */
   border-left: 5px solid black;
