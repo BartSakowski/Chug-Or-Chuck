@@ -120,6 +120,7 @@ function loadChugList(chugList) {
     chugListItems.innerHTML += `<li class="chug-list-beers" data-beer-id=${beer.id}>${beer.attributes.brand}</li>` 
   }
   )
+  //
 }
 
 function addChuck() {
