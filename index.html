@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <title>Chug Or Chuck</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
   </head>
   <body>
     <header>
@@ -18,16 +21,16 @@
         <img src="" class="beer-avatar" />
         <h4 id="uploader_comment"></h4> 
         <ul id="user_comments"></ul>
-        <form class="add-comment-form">
+        <form class="add-comment-form" data-beer-id=>
           <input type="text" name="comment" value="" placeholder="Comment" class="input-text"/>
           <br>
           <input type="submit" name="submit" value="Add Comment" class="submit"/>
         </form>
         <div class="chugContainer">
-        <p class="chugLikes"> Chugs</p>
-        <button class="chug-btn" data-id=>Chug </button>
-        <p class="chuckLikes"> Chucks</p>
-        <button class="chuck-btn" data-id=>Chuck</button>
+          <button class="chug-btn" data-id=>Chug </button>
+          <p class="chugLikes"></p>
+          <p class="chuckLikes"></p>
+          <button class="chuck-btn" data-id=>Chuck</button>
         </div>
       </div>
       <div id="chug-list-container">
