@@ -23,9 +23,8 @@ main {
   padding-bottom: 30px;
 }
 
-
-
 .card {
+  visibility:visible;
   text-align: center;
   border: grey solid 1px;
   padding: 1rem;
@@ -42,14 +41,38 @@ main {
   width: auto;
 }
 
+.chug-list-card {
+
+  text-align: center;
+  border: grey solid 1px;
+  padding: 1rem;
+  width: 25rem;
+  height: 40rem;
+  display: center;
+  margin: 1rem 2rem;
+  box-shadow: 3px 4px #a834eb;
+}
+
+.beer-avatar-chug {
+  justify-self: center;
+  height: 15rem;
+  width: auto;
+}
+
 #chug-list-container {
+  display:'none';
   min-width: 15em;
   max-width: 24em;
   float: left;
   margin-left: 2em;
   margin-top: 6.5em;
 }
-
+#close {
+  float:right;
+  display:inline-block;
+  padding:2px 5px;
+  background:#ccc;
+}
 
 p {
   font-size: 1.05em;
