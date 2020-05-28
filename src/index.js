@@ -18,16 +18,16 @@ async function fetchBeers() {
 }
 
 function renderBeer(beer) {
-  const { brand, name, location, image, uploader_comment, chugs, chucks, comments } = beer[0].attributes
-
+  
+  const { brand, name, location, image, uploader_comment, chugs, chucks, comments, users } = beer[0].attributes
   const cardBrand = document.getElementById("brand")
   cardBrand.innerHTML = brand
 
   const cardName = document.getElementById("bartender")
-  cardName.innerHTML = name
+  cardName.innerHTML = `Bartender: ${name}`
 
   const cardLocation = document.getElementById("location")
-  cardLocation.innerHTML = location
+  cardLocation.innerHTML = `Location: ${location}`
 
   const cardImg = document.querySelector(".beer-avatar")
   cardImg.src = image
@@ -46,29 +46,54 @@ function renderBeer(beer) {
 
   const chuckId = document.querySelector(".chuck-btn").dataset
   chuckId.id = `${beer[0].id}`
-
+  
   const userComments = document.getElementById("user_comments")
-  // console.log(comments)
-  comments.forEach(comment => {
-    userComments.innerHTML = `<li>-${comment.text}</li>`
+  userComments.innerHTML = ""
+ 
+    comments.forEach(comment => {
+    userComments.innerHTML += `<li>${comment.text} -${users.shift().name} </li>`
   })
+
+  // users.forEach(user => {
+  //   userComments.innerHTML += `<li>-${user.name} </li>`
+  // })
+
 }
 
 function addComment() {
+  const userComments = document.getElementById("user_comments")
   const commentForm = document.querySelector(".add-comment-form")
-  // console.log(commentForm)
-  commentForm.addEventListener("click", (event) => {
+  commentForm.addEventListener("submit", (event) => {
+    console.log(userComments.children.length)
     event.preventDefault()
-    // console.log("hey")
+    const beerId = document.querySelector(".chug-btn").dataset.id
+    const newComment = event.target[0].value
+    event.target.reset()
+    userComments.innerHTML += `<li>${newComment}</li>`
+    const reqObj = {
+      method: "POST",
+      headers: 
+      {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify ({
+        "text": newComment,
+        "user_id": 16,
+        "beer_id": beerId
+      })
+    }
+    fetch("http://localhost:3000/comments/", reqObj)
+    .then(resp => resp.json())
+    // .then(comment => console.log(comment))
   })
 }
+const chugContainerCard = document.querySelector(".chugContainer")
 
 function addChug() {
-  // const chugBtn = document.querySelector(".chug-btn")
-  beerCard.addEventListener('click', (event) => {
+  chugContainerCard.addEventListener('click', (event) => {
     event.preventDefault()
     if (event.target.className === "chug-btn") {
-      let currentChugs = parseInt(event.target.previousElementSibling.innerHTML)
+      let currentChugs = parseInt(event.target.nextElementSibling.innerHTML)
       const reqObj = {
         method: "PATCH",
         headers: 
@@ -84,7 +109,7 @@ function addChug() {
       // console.log(event.target.dataset)
       fetch(`http://localhost:3000/beers/${id}`, reqObj)
       .then(resp => resp.json())
-      .then(chug => event.target.previousElementSibling.innerHTML = `${currentChugs + 1} Chugs`)
+      // .then(chug => event.target.nextElementSibling.innerHTML = `${currentChugs + 1} Chugs`)
     
       
       let chugItem = beerArray.shift()
@@ -103,12 +128,15 @@ function loadChugList(chugList) {
     chugListItems.innerHTML += `<li class="chug-list-beers" data-beer-id=${beer.id}>${beer.attributes.brand}</li>` 
   }
   )
+  //
 }
 
 function addChuck() {
-  beerCard.addEventListener('click', (event) => {
+
+  chugContainerCard.addEventListener('click', (event) => {
     if (event.target.className === "chuck-btn") {
       let currentChucks = parseInt(event.target.previousElementSibling.innerHTML)
+      console.log(currentChucks)
       const reqObj = {
         method: "PATCH",
         headers: 
@@ -123,7 +151,7 @@ function addChuck() {
       const id = event.target.dataset.id
       fetch(`http://localhost:3000/beers/${id}`, reqObj)
       .then(resp => resp.json())
-      .then(chug => event.target.previousElementSibling.innerHTML = `${currentChucks + 1} Chucks`)
+      .then(chuck => event.target.previousElementSibling.innerHTML = `${currentChucks + 1} Chucks`)
 
       let chuckItem = beerArray.shift()
       chuckList.push(chuckItem)
@@ -212,8 +240,8 @@ function getOverIt() {
   })
 }
 
-async function app() {
-  await fetchBeers()
+function app() {
+  fetchBeers()
   addChug()
   addChuck()
   chugListCardListener()
