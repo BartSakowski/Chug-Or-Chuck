@@ -29,9 +29,8 @@ main {
   padding-bottom: 30px;
 }
 
-
-
 .card {
+  visibility:visible;
   text-align: center;
   border: grey solid 1px;
   padding: 1rem;
@@ -61,12 +60,32 @@ main {
   margin-bottom: 10px;
 }
 
+.chug-list-card {
+
+  text-align: center;
+  border: grey solid 1px;
+  padding: 1rem;
+  width: 25rem;
+  height: 40rem;
+  display: center;
+  margin: 1rem 2rem;
+  box-shadow: 3px 4px #a834eb;
+}
+
+.beer-avatar-chug {
+  justify-self: center;
+  height: 15rem;
+  width: auto;
+}
+
 #chug-list-container {
+
   /* min-width: 10em;
   max-width: 20em; */
   width: 25rem;
   height: 50rem;
   /* float: right; */
+
   margin-left: 2em;
   /* margin-top: 6.5em; */
   border-left: 5px solid black;
@@ -84,9 +103,19 @@ main {
   
 }
 
+
 .chuckLikes {
   display: inline;
 }
+
+#close {
+  float:right;
+  display:inline-block;
+  padding:2px 5px;
+  background:#ccc;
+}
+
+
 
 p {
   font-size: 1.05em;
