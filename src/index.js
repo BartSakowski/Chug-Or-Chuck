@@ -52,9 +52,9 @@ function renderBeer(beer) {
   
   const userComments = document.getElementById("user_comments")
   userComments.innerHTML = ""
- 
-    comments.forEach(comment => {
+  comments.forEach(comment => {
     userComments.innerHTML += `<li>${comment.text} -${users.shift().name} </li>`
+    console.log(userComments)
   })
 
   // users.forEach(user => {
