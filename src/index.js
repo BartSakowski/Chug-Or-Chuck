@@ -14,7 +14,7 @@ async function fetchBeers() {
   const beers = await resp.json()
   beerArray = beers.data 
   renderBeer(beerArray) 
-
+  console.log("persnickty")
 }
 
 function renderBeer(beer) {
