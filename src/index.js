@@ -19,7 +19,7 @@ async function fetchBeers() {
 
 function renderBeer(beer) {
 
-  
+
   const { brand, name, location, image, uploader_comment, chugs, chucks, comments, users } = beer[0].attributes
 
 
@@ -54,7 +54,8 @@ function renderBeer(beer) {
   userComments.innerHTML = ""
   comments.forEach(comment => {
     userComments.innerHTML += `<li>${comment.text} -${users.shift().name} </li>`
-    console.log(userComments)
+
+    
   })
 
   // users.forEach(user => {
@@ -62,7 +63,6 @@ function renderBeer(beer) {
   // })
 
 }
-
 function addComment() {
   const userComments = document.getElementById("user_comments")
   const commentForm = document.querySelector(".add-comment-form")
@@ -72,6 +72,7 @@ function addComment() {
     const beerId = document.querySelector(".chug-btn").dataset.id
     const newComment = event.target[0].value
     event.target.reset()
+    console.log(event)
     userComments.innerHTML += `<li>${newComment}</li>`
     const reqObj = {
       method: "POST",
@@ -81,7 +82,7 @@ function addComment() {
       },
       body: JSON.stringify ({
         "text": newComment,
-        "user_id": 16,
+        "user_id": 23,
         "beer_id": beerId
       })
     }
@@ -156,7 +157,7 @@ function addChuck() {
       const id = event.target.dataset.id
       fetch(`http://localhost:3000/beers/${id}`, reqObj)
       .then(resp => resp.json())
-      .then(chuck => event.target.previousElementSibling.innerHTML = `${currentChucks + 1} Chucks`)
+      // .then(chuck => event.target.previousElementSibling.innerHTML = `${currentChucks + 1} Chucks`)
 
       let chuckItem = beerArray.shift()
       chuckList.push(chuckItem)
@@ -195,10 +196,10 @@ function renderSingleBeer(chugListId) {
     cardBrand.innerHTML = brand
   
     const cardName = document.getElementById("bartender-list")
-    cardName.innerHTML = name
+    cardName.innerHTML = `Bartender: ${name}`
   
     const cardLocation = document.getElementById("location-list")
-    cardLocation.innerHTML = location
+    cardLocation.innerHTML = `Location: ${location}`
     
     const cardImg = document.querySelector(".beer-avatar-chug")
     cardImg.src = image
