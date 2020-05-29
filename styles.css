@@ -57,6 +57,13 @@ main {
   border-radius: 5px;
 }
 
+#user_comments-list {
+  height: 60px;
+  padding-left:0px ;
+  border: 2px solid #e04b52;
+  border-radius: 5px;
+}
+
 .add-comment-form {
   margin-top: 10px;
   margin-bottom: 10px;

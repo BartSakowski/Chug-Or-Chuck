@@ -53,11 +53,12 @@ function renderBeer(beer) {
   const userComments = document.getElementById("user_comments")
   userComments.innerHTML = ""
   comments.forEach(comment => {
+    console.log(users[0].name)
     userComments.innerHTML += `<li>${comment.text} -${users.shift().name} </li>`
-
+    
     
   })
-
+  
   // users.forEach(user => {
   //   userComments.innerHTML += `<li>-${user.name} </li>`
   // })
@@ -73,7 +74,7 @@ function addComment() {
     const newComment = event.target[0].value
     event.target.reset()
     console.log(event)
-    userComments.innerHTML += `<li>${newComment}</li>`
+    userComments.innerHTML += `<li>${newComment} </li>`
     const reqObj = {
       method: "POST",
       headers: 
@@ -82,7 +83,7 @@ function addComment() {
       },
       body: JSON.stringify ({
         "text": newComment,
-        "user_id": 23,
+        "user_id": 37,
         "beer_id": beerId
       })
     }
@@ -190,61 +191,75 @@ function renderSingleBeer(chugListId) {
   console.log(chugListId,"=====")
   chugListCard.style.display='block'
   beerCard.style.display='none'
-
     const { brand, name, location, image, uploader_comment, chugs, chucks, comments } = chugListId.attributes
     const cardBrand = document.getElementById("brand-list")
     cardBrand.innerHTML = brand
-  
     const cardName = document.getElementById("bartender-list")
     cardName.innerHTML = `Bartender: ${name}`
-  
     const cardLocation = document.getElementById("location-list")
     cardLocation.innerHTML = `Location: ${location}`
-    
     const cardImg = document.querySelector(".beer-avatar-chug")
     cardImg.src = image
     // console.log(cardImg)
-    
     const cardUploaderComment = document.getElementById("uploader_comment-list")
     cardUploaderComment.innerHTML = uploader_comment
-
     const chugNum = document.querySelector(".chugLikes-list")
     chugNum.innerHTML = `${chugs} Chugs`
-  
     const chuckNum = document.querySelector(".chuckLikes-list")
     chuckNum.innerHTML = `${chucks} Chucks`
-  
     const chuckId = document.querySelector(".chuck-btn-list").dataset
-    // console.log(chugListId)
     chuckId.id = `${chugListId.id}`
-  
-
-    const overIt = document.querySelector
+    const userComments = document.getElementById("user_comments-list") ////////copy this
+    userComments.innerHTML = ""////////copy this
+    comments.forEach(comment => {////////copy this
+      userComments.innerHTML += `<li>${comment.text}  </li>`////////copy this
+    })////////copy this
 }
-
 function getOverIt() {
   chugListCard.addEventListener('click', (event) => {
     if (event.target.className === "chuck-btn-list") {
       // console.log(event.target)
       // console.log(chugList[0].id)
       const currentBeerId = event.target.dataset.id
-
       for( let i = 0; i < chugList.length; i++) {
         if (chugList[i].id === currentBeerId) {
-         
           chugList.splice(i, 1);
           break;
         } //else {
         //   console.log('else')
         // }
       }
-
-
+      chugListCard.style.display='none' ////////copy this
+      beerCard.style.display='block'  ////////copy this
       loadChugList(chugList)
       console.log(chugList)
     }
   })
 }
+
+// function getOverIt() {
+//   chugListCard.addEventListener('click', (event) => {
+//     if (event.target.className === "chuck-btn-list") {
+//       // console.log(event.target)
+//       // console.log(chugList[0].id)
+//       const currentBeerId = event.target.dataset.id
+
+//       for( let i = 0; i < chugList.length; i++) {
+//         if (chugList[i].id === currentBeerId) {
+         
+//           chugList.splice(i, 1);
+//           break;
+//         } //else {
+//         //   console.log('else')
+//         // }
+//       }
+
+
+//       loadChugList(chugList)
+//       console.log(chugList)
+//     }
+//   })
+// }
 
 function app() {
   fetchBeers()
